@@ -11,12 +11,10 @@ module uart_tx(
       output logic done
 );
       logic [7:0] shift_register;
-      logic [3:0] current_state;
-      logic [3:0] next_state;
 
       //uart output: start bit (tx is default high), data frame (8bits), no parity bit, stop bit (1)
       
-      typedef enum [3:0] {
+      typedef enum logic [3:0] {
             IDLE,
             START,
             BIT0,
@@ -29,6 +27,9 @@ module uart_tx(
             BIT7,
             STOP
       } state_t;
+
+      state_t current_state;
+      state_t next_state;
 
       always_comb begin
             next_state = current_state;
